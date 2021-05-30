@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp">
+
+
+    <RelativeLayout
+        android:id="@+id/avatarLayout"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/listAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="0dp"
+            android:padding="6dp"/>
+
+        <View
+            android:id="@+id/gridOnlineIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/online_icon"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="2dp"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/listName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:paddingLeft="6dp"
+        app:layout_constraintStart_toEndOf="@+id/avatarLayout"
+        app:layout_constraintTop_toTopOf="@+id/avatarLayout"
+        app:layout_constraintBottom_toBottomOf="@+id/avatarLayout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

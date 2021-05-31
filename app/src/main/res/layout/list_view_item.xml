@@ -27,15 +27,18 @@
         android:src="@drawable/online_icon"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/listAvatar"
-        app:layout_constraintEnd_toEndOf="@+id/listAvatar" />
+        app:layout_constraintEnd_toEndOf="@+id/listAvatar"
+        android:contentDescription="@string/online_indicator" />
 
     <TextView
         android:id="@+id/listName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:paddingLeft="6dp"
-        android:text="TextView"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:text="@string/textview"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/listAvatar"
         app:layout_constraintStart_toEndOf="@+id/listAvatar"
         app:layout_constraintTop_toTopOf="@+id/listAvatar" />

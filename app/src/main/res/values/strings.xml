@@ -3,4 +3,8 @@
     <string name="layout">Show as list</string>
     <string name="simulate_changes">Simulate changes</string>
     <string name="online">Online</string>
+    <string name="textview">TextView</string>
+    <string name="online_indicator">Online Indicator</string>
+    <string name="show_as_list">Show as list</string>
+    <string name="show_as_grid">Show as grid</string>
 </resources>

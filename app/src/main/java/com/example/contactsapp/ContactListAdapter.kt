@@ -3,7 +3,7 @@ package com.example.contactsapp
 import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
-import android.os.Parcelable
+import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.contactsapp.ContactListAdapter.ViewType.SMALL
 import com.squareup.picasso.Picasso
-import java.io.Serializable
-import kotlinx.android.parcel.Parcelize
-
-import android.util.Pair as Pair
 
 const val ARG_TILE_VIEW = 0
 const val ARG_LIST_VIEW = 1
@@ -70,7 +66,7 @@ class ContactListAdapter internal constructor(
         override fun onBindViewHolder(contact: Contact, context: Context) {
             val iconPixelSize = (context.resources.displayMetrics.density * 64).toInt()
             Picasso.get()
-                .load(contact.avatar)
+                .load(contact.avatar + "&s=" + iconPixelSize.toString())
                 .resize(iconPixelSize, iconPixelSize).into(avatar)
             accountStatus.visibility = if (contact.accountStatus) View.VISIBLE else View.GONE
         }
@@ -114,7 +110,3 @@ class ContactListAdapter internal constructor(
     }
 }
 
-@Parcelize
-class Contact(var avatar: String, var accountStatus: Boolean, var name: String, var email: String): Parcelable {
-
-}

@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/changelayout"
-        android:title="@string/layout"
+        android:title="Show as list"
         android:icon="@drawable/baseline_more_vert_24"
         android:iconTintMode="@color/white"
         />

@@ -1,16 +1,23 @@
 package com.example.contactsapp
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.ContentResolver
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.security.MessageDigest
@@ -19,39 +26,78 @@ import kotlin.text.Charsets.UTF_8
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class MainActivity : Activity(), OnItemClickedListener {
-    private lateinit var toolbar: Toolbar
+class MainActivity : AppCompatActivity(), OnItemClickedListener {
     private lateinit var rvList: RecyclerView
     private lateinit var contactsSimulator: ContactSimulator
+    private lateinit var simulateChangesButton: Button
+    private var contactList: List<Contact>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toolbar = findViewById(R.id.toolbar)
-        toolbar.inflateMenu(R.menu.menu)
-
         rvList = findViewById(R.id.rvList) as RecyclerView
-        rvList.layoutManager = LinearLayoutManager(this)
+        rvList.layoutManager = GridLayoutManager(this, 1)
+        simulateChangesButton = findViewById(R.id.simulateChangesButton)
+
+        savedInstanceState?.let {
+            contactList = it.getParcelableArray("contactsArray")?.toList() as? List<Contact>
+        }
     }
 
     override fun onStart() {
         super.onStart()
         contactsSimulator = ContactSimulator(this)
-        val contactList = contactsSimulator.generateContactList()
-        val adapter = ContactListAdapter(this, R.layout.item_listview, contactList, this)
-        rvList.adapter = adapter
+
+        if (contactList == null) {
+            contactList = contactsSimulator.generateContactList()
+        }
+        contactList?.let { contactList ->
+            val adapter = ContactListAdapter(this, R.layout.item_listview, contactList,
+                rvList.layoutManager as? GridLayoutManager, this)
+            rvList.adapter = adapter
+        }
+
+        simulateChangesButton.setOnClickListener {
+            contactList = contactsSimulator.simulateChanges()
+            contactList?.let { contactList ->
+                val adapter = ContactListAdapter(this, R.layout.item_listview, contactList,
+                    rvList.layoutManager as? GridLayoutManager, this)
+                rvList.adapter = adapter
+            }
+        }
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //menu?.add(0, 0, 0, "menu")
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val layoutParams = LinearLayout.LayoutParams(0, 0)
-        rvList.layoutParams = layoutParams
+        (rvList.layoutManager as? GridLayoutManager)?.let {
+            if (it.spanCount > 3) {
+                it.spanCount = 1
+            } else {
+                it.spanCount = 5
+            }
+            rvList.adapter?.let {
+                it.notifyItemRangeChanged(0, it.itemCount)
+            }
+        }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onClick(viewHolder: ContactListAdapter.BindableViewHolder, contact: Contact) {
+        val options = viewHolder.transitionOptions(this)
+
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("contact", contact)
+        startActivity(intent, options.toBundle())
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        val contactArray = contactList?.toTypedArray()
+        outState.putParcelableArray("contactsArray", contactArray)
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 }
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DetailsActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/detailsAvatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="imageTransition"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/detailsName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:transitionName="nameTransition"
+        app:layout_constraintEnd_toEndOf="@+id/detailsAvatar"
+        app:layout_constraintStart_toStartOf="@+id/detailsAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/detailsAvatar" />
+
+    <TextView
+        android:id="@+id/detailsOnlineStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/online"
+        app:layout_constraintEnd_toEndOf="@+id/detailsName"
+        app:layout_constraintStart_toStartOf="@+id/detailsName"
+        app:layout_constraintTop_toBottomOf="@+id/detailsName" />
+
+    <TextView
+        android:id="@+id/detailsGmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textColor="@android:color/holo_blue_dark"
+        app:layout_constraintEnd_toEndOf="@+id/detailsOnlineStatus"
+        app:layout_constraintStart_toStartOf="@+id/detailsOnlineStatus"
+        app:layout_constraintTop_toBottomOf="@+id/detailsOnlineStatus" />
+</androidx.constraintlayout.widget.ConstraintLayout>

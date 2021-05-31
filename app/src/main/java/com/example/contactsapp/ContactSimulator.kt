@@ -11,7 +11,7 @@ class ContactSimulator(val context: Context) {
     init {
         contactList = mutableListOf()
         nameOptions = mutableListOf(
-            "Ekaterina Pavlovna", "Anastasia", "Tetiana", "Iryna", "Anna", "Svetlana", "Nikolai XX", "Peter", "Andrey", "Pavel", "Vladislav")
+            "Ekaterina Pavlovna", "Anastasia", "Tetiana", "Iryna", "Anna", "Svetlana", "Nikolai XX", "Peter", "Andrey", "Pavel", "Vladislav", "taran13t")
         contactList = generateContactList()
     }
 
